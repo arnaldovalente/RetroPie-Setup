@@ -51,6 +51,7 @@ function build_retroarch() {
     if ! isPlatform "x11"; then
         params+=(--disable-pulse)
         ! isPlatform "mesa" && params+=(--disable-x11)
+        isPlatform "rk3399" && params+=(--disable-x11)
     fi
     if compareVersions "$__os_debian_ver" lt 9; then
         params+=(--disable-ffmpeg)
