@@ -169,6 +169,8 @@ function build_emulationstation() {
     elif isPlatform "x11"; then
         local gl_ver=$(sudo -u $user glxinfo | grep -oP "OpenGL version string: \K(\d+)")
         [[ "$gl_ver" -gt 1 ]] && params+=(-DUSE_OPENGL_21=On)
+    elif isPlaftorm "armbian"; then
+        params+=(-DGLES=On)
     fi
     rpSwap on 1000
     cmake . "${params[@]}"
