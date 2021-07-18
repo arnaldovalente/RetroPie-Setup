@@ -396,20 +396,7 @@ function get_platform() {
                 __platform="armv7-mali"
                 ;;
             *)
-                # jetson nano and tegra x1 can be identified via /sys/firmware/devicetree/base/model
-                local model_path="/sys/firmware/devicetree/base/model"
-                if [[ -f "$model_path" ]]; then
-                    # ignore end null to avoid bash warning
-                    local model=$(tr -d '\0' <$model_path)
-                    case "$model" in
-                        "NVIDIA Jetson Nano Developer Kit")
-                            __platform="jetson-nano"
-                            ;;
-                        icosa|icosa_emmc)
-                            __platform="tegra-x1"
-                            ;;
-                    esac
-                elif [[ -e "/proc/device-tree/compatible" ]]; then
+                if [[ -e "/proc/device-tree/compatible" ]]; then
                     CHIP="$(tr -d '\0' < /proc/device-tree/compatible)"
                      if [[ ${CHIP} =~ "rk3399" ]]; then
                         __platform="rk3399"
