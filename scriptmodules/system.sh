@@ -409,6 +409,11 @@ function get_platform() {
                             __platform="tegra-x1"
                             ;;
                     esac
+                elif [[ -e "/proc/device-tree/compatible" ]]; then
+                    CHIP="$(tr -d '\0' < /proc/device-tree/compatible)"
+                     if [[ ${CHIP} =~ "rk3399" ]]; then
+                        __platform="rk3399"
+                     fi
                 else
                     case $architecture in
                         i686|x86_64|amd64)
@@ -567,4 +572,9 @@ function platform_vero4k() {
     cpu_armv7 "cortex-a7"
     __default_cflags="-I/opt/vero3/include -L/opt/vero3/lib"
     __platform_flags+=(mali gles)
+}
+
+function platform_rk3399() {
+    cpu_armv8 "cortex-a72.cortex-a53"
+    __platform_flags+=(kms gles gles3)
 }
