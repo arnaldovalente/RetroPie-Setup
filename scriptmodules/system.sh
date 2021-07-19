@@ -548,7 +548,7 @@ function platform_generic-x11() {
 
 function platform_armv7-mali() {
     cpu_armv7
-    __platform_flags+=(mali gles)
+    __platform_flags+=(armbian kms gles)
 }
 
 function platform_imx6() {
