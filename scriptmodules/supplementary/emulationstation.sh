@@ -171,6 +171,7 @@ function build_emulationstation() {
         [[ "$gl_ver" -gt 1 ]] && params+=(-DUSE_OPENGL_21=On)
     elif isPlaftorm "armbian"; then
         params+=(-DGLES=On)
+        params+=(-DUSE_GLES1=On)
     fi
     rpSwap on 1000
     cmake . "${params[@]}"
